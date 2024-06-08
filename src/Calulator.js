@@ -1,5 +1,4 @@
 import React from 'react'
-// import {Container, Row, Col, Button, Form} from 'react-bootstrap';
 import './index.css';
 import CalculatorComponent from './Components/CalculatorComponent';
 import SalaryComponent from './Components/SalaryComponent';

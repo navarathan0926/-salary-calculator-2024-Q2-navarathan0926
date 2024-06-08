@@ -1,9 +1,7 @@
 import React, { useState} from 'react';
-// import EarningForm from './EarningForm';
 import Reset_icon from './../assets/images/_Link.png'
 import { useSelector, useDispatch } from 'react-redux';
 import  { reset, setBasic} from './../features/calculator/salarySlice'
-// import AddEarningForm from '../features/earnings/AddEarningForm';
 import EarningsList from '../features/earnings/EarningsList';
 import EditEarningForm from '../features/earnings/EditEarningForm';
 import DeductionsList from '../features/deductions/DeductionsList';
@@ -15,17 +13,12 @@ import {resetEarnings} from '../features/earnings/earningsSlice'
 const CalculatorComponent = () => {
     const [earningSection,setEarningSection] = useState(false);
     const [deductionSection,setDeductionSection] = useState(false);
-
-
-
     const salary = useSelector((state) => state.salary) ;
     const basic = salary.basic || '';
     
     const dispatch = useDispatch();
-
     const [basicSalary, setBasicSalary] = useState(basic);
 
-    // const addValue = Number(basicSalary) || 0;
 
     const resetAll = () =>{
         setBasicSalary(0);
@@ -34,7 +27,6 @@ const CalculatorComponent = () => {
         dispatch(resetEarnings());
     }
 
-   
 
     const handleOnChange = (e) => {
         const value = Number(e.target.value) || 0;
@@ -42,21 +34,6 @@ const CalculatorComponent = () => {
         dispatch(setBasic(value));
       };
     
-    const handleSubmit = async(e) =>{
-        // e.preventDefault()
-        // const data = await axios.post("/locations/create",locationFormData)
-        // console.log(data)
-        // if(data.data.success){
-        //   setAddLocationSection(false)
-        //   alert(data.data.message)
-        //   getFetchData()
-        //   setLocationFormData({
-        //     name: "",
-        //     address : "",
-        //     phone : ""
-        //   })
-        // }
-      }
     
   return (
     <>
@@ -72,10 +49,8 @@ const CalculatorComponent = () => {
                     <input type="number" className="rounded-1" name="inputBasicSalary" id="inputBasicSalary"  
                         value={basic} 
                         onChange={handleOnChange}
-                        
-                        // onChange={(e) => setBasicSalary(e.target.value)}
                     />
-                    {/* <h3>{salary}</h3> */}
+                    
                     </form>
                     <h5>Earnings</h5>
                     <p className="text-secondary">
@@ -97,22 +72,13 @@ const CalculatorComponent = () => {
                 </div>
             </div>
         </div>
-        {/* Earnings form */}
+      
         {
         earningSection && (
-            // <AddEarningForm 
-            //     handleClose = {()=>setEarningSection(false)}
-            // />
-            // <EarningForm
-            // handleSubmit={handleSubmit}
-            // handleOnChange={handleOnChange}
-            // handleClose = {()=>setEarningSection(false)}
-            // // rest = {locationFormData}
-            // />
+            
             <EditEarningForm 
                 handleClose = {()=>setEarningSection(false)}
                 operation='Add'
-                // key={''}
                 earning={null}
                 heading="Add New Earnings"
             />
@@ -126,17 +92,13 @@ const CalculatorComponent = () => {
             <EditDeductionForm
                 handleClose = {()=>setDeductionSection(false)}
                 operation='Add'
-                // key={''}
                 earning={null}
                 heading="Add New Deductions"
             />
-
         )
-        }
-        
+        } 
     </>
-    
-    
+
   )
 }
 

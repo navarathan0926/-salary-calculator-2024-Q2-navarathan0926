@@ -17,9 +17,6 @@ const EditDeductionForm =({handleClose,operation,deduction,heading}) =>{
     const onEpfChanged = e => setEpf(e.target.checked);
 
     const onSaveDeductionClicked = (e) =>{
-        
-        // <button className={`btn float-right ${getValues('IsActive') ? 'btn-danger' : 'btn-success'}`}
-        // {!getValues('IsActive') && (
         e.preventDefault();
         if(name && amount){
             if(operation == 'Update'){

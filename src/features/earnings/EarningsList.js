@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { selectAllEarnings, earningRemoved, earningUpdated } from "./earningsSlice";
+import { selectAllEarnings, earningRemoved } from "./earningsSlice";
 import { MdClose , MdEdit } from "react-icons/md";
 import { useDispatch } from 'react-redux';
 import Epf_icon  from './../../assets/images/frame.png'
@@ -69,8 +69,6 @@ const EarningsList = () => {
                     key={editItem.id}
                     earning={editItem}
                     heading="Update Earnings"
-                    // handleRemove={handleRemove}
-                    // handleEdit={handleEdit}
                 />
             )
         }

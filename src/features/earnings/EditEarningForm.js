@@ -17,9 +17,6 @@ const EditEarningForm = ({handleClose,operation,earning, heading}) => {
     const onEpfChanged = e => setEpf(e.target.checked);
 
     const onSaveEarningClicked = (e) =>{
-        
-        // <button className={`btn float-right ${getValues('IsActive') ? 'btn-danger' : 'btn-success'}`}
-        // {!getValues('IsActive') && (
         e.preventDefault();
         if(name && amount){
             if(operation == 'Update'){

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAllEarnings } from '../features/earnings/earningsSlice';
 import { selectAllDeductions } from '../features/deductions/deductionsSlice';
@@ -44,45 +44,6 @@ const SalaryComponent = () => {
     dispatch(setCTC(salaries));
   }
 
-  // const calGrossEarning =() =>{
-  //   const grossEarning = salaries.totalEarning - salaries.grossDeduction;
-  //   dispatch(setGrossEarning(grossEarning));
-  // }
-
-  // const calGrossSalaryForEPF= ()=>{
-  //   const grossSalaryForEPF = salaries.totalEarningsForEPF - salaries.grossDeduction;
-  //   dispatch(setGrossSalaryForEPF(grossSalaryForEPF));
-  // }
-
-  // const calEmployeeEPF= ()=>{
-  //   const employeeEPF = salaries.grossSalaryForEPF * 0.08;
-  //   dispatch(setEmployeeEPF(employeeEPF));
-  // }
-
-  // const calEmployerEPF= ()=>{
-  //   const employerEPF = salaries.grossSalaryForEPF * 0.12;
-  //   dispatch(setEmployerEPF(employerEPF));
-  // }
-
-  // const calEmployerETF= ()=>{
-  //   const employerETF = salaries.grossSalaryForEPF * 0.03;
-  //   dispatch(setEmployerETF(employerETF));
-  // }
-
-  // const calAPIT= ()=>{
-  //   const APIT = (salaries.grossEarning * 0.18) -red;
-  //   dispatch(setAPIT(APIT));
-  // }
-
-  // const calNetSalary= ()=>{
-  //   const netSalary = salaries.grossEarning - salaries.employeeEPF- salaries.APIT;
-  //   dispatch(setNetSalary(netSalary));
-  // }
-
-  // const calCTC = ()=>{
-  //   const CTC = salaries.grossEarning + salaries.employerEPF + salaries.employerETF;
-  //   dispatch(setNetSalary(CTC));
-  // }
 
   useEffect(() =>{
     calTotalEarnings();
@@ -96,7 +57,6 @@ const SalaryComponent = () => {
     return value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
 
-  // const totalEarning = useSelector((state) => state.salary.totalEarning);
 
   return (
     <div className="col-lg-4 col-md-12">

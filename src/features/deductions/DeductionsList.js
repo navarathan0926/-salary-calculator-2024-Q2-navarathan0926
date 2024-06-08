@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { selectAllDeductions, deductionRemoved, deductionUpdated } from "./deductionsSlice";
+import { selectAllDeductions, deductionRemoved } from "./deductionsSlice";
 import { MdClose , MdEdit } from "react-icons/md";
 import { useDispatch } from 'react-redux';
 import Epf_icon  from './../../assets/images/frame.png'
@@ -44,22 +44,17 @@ const DeductionsList = () => {
                             <img className="px-2" src={Epf_icon} alt="" />
                         )
                     }
-                    <span> | </span>
-                    
-                    
+                    <span> | </span>   
                 </p>
                 <button className="btn btn-light btn-sm rounded-circle mb-3" onClick={(e)=>handleEdit(deduction)}><MdEdit /></button>
-                <button className="btn btn-light btn-sm rounded-circle mb-3" onClick={(e) => handleRemove(deduction.id)}><MdClose /></button>
-                
+                <button className="btn btn-light btn-sm rounded-circle mb-3" onClick={(e) => handleRemove(deduction.id)}><MdClose /></button>   
             </div>
-        
         </article>
         
    
 ))
   return (
     <section>
-
         {renderedDeductions}
         {
             editDeductionSection && (
@@ -69,7 +64,6 @@ const DeductionsList = () => {
                     key={editItem.id}
                     deduction={editItem}
                     heading="Update Deductions"
- 
                 />
             )
         }
