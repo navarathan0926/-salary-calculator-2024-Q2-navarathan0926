@@ -2,20 +2,25 @@ import React, { useState} from 'react';
 // import EarningForm from './EarningForm';
 import Reset_icon from './../assets/images/_Link.png'
 import { useSelector, useDispatch } from 'react-redux';
-import  { reset, incrementByAmount, setBasic} from './../features/calculator/salarySlice'
-import AddEarningForm from '../features/earnings/AddEarningForm';
+import  { reset, setBasic} from './../features/calculator/salarySlice'
+// import AddEarningForm from '../features/earnings/AddEarningForm';
 import EarningsList from '../features/earnings/EarningsList';
 import EditEarningForm from '../features/earnings/EditEarningForm';
-
-
-
-
+import DeductionsList from '../features/deductions/DeductionsList';
+import EditDeductionForm from '../features/deductions/EditDeductionForm';
+import {resetDeductions} from '../features/deductions/deductionsSlice'
+import {resetEarnings} from '../features/earnings/earningsSlice'
 
 
 const CalculatorComponent = () => {
     const [earningSection,setEarningSection] = useState(false);
+    const [deductionSection,setDeductionSection] = useState(false);
 
-    const basic = useSelector((state) => state.salary.basic) || '';
+
+
+    const salary = useSelector((state) => state.salary) ;
+    const basic = salary.basic || '';
+    
     const dispatch = useDispatch();
 
     const [basicSalary, setBasicSalary] = useState(basic);
@@ -25,6 +30,8 @@ const CalculatorComponent = () => {
     const resetAll = () =>{
         setBasicSalary(0);
         dispatch(reset());
+        dispatch(resetDeductions());
+        dispatch(resetEarnings());
     }
 
    
@@ -82,7 +89,10 @@ const CalculatorComponent = () => {
                     <hr />
                     <h5>Deductions</h5>
                     <p className="text-secondary small">Salary Advances, Loan Deductions, and Allowance</p>
-                    <button className="btn text-primary pb-3">+ Add New Deduction</button>
+
+                    <DeductionsList />
+
+                    <button className="btn text-primary pb-3" onClick={()=>setDeductionSection(true)} >+ Add New Deduction</button>
                 </div>
                 </div>
             </div>
@@ -102,16 +112,27 @@ const CalculatorComponent = () => {
             <EditEarningForm 
                 handleClose = {()=>setEarningSection(false)}
                 operation='Add'
-                key={''}
+                // key={''}
                 earning={null}
                 heading="Add New Earnings"
             />
 
         )
-        
-
         }
 
+        {/* Deductions section */}
+        {
+        deductionSection && (
+            <EditDeductionForm
+                handleClose = {()=>setDeductionSection(false)}
+                operation='Add'
+                // key={''}
+                earning={null}
+                heading="Add New Deductions"
+            />
+
+        )
+        }
         
     </>
     

@@ -1,29 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { nanoid } from "@reduxjs/toolkit";
 
-const initialState =[  
+const initialState =[
     // {
     //     id: '1',
-    //     name: 'Travel',
-    //     amount: 5000.00,
+    //     name: 'No pay',
+    //     amount: 8000.00,
     //     epf: false
-    // },
-    // {
-    //     id: '2',
-    //     name: 'health',
-    //     amount: 10000.00,
-    //     epf: true
     // }  
 ]
 
-const earningSlice = createSlice({
-    name:"earnings",
+const deductionsSlice = createSlice({
+    name:"deductions",
     initialState,
     reducers:{
-        resetEarnings: (state)=>{
+        resetDeductions: (state)=>{
             return [];
         },
-        earningAdded:{
+        deductionAdded:{
             reducer(state, action){
             state.push(action.payload)
         },
@@ -38,18 +32,18 @@ const earningSlice = createSlice({
             }
         }
     },
-    earningRemoved(state, action) {
+    deductionRemoved(state, action) {
         const { id } = action.payload;
-        return state.filter(earning => earning.id !== id);
+        return state.filter(deduction => deduction.id !== id);
     },
-    earningUpdated:{
+    deductionUpdated:{
         reducer(state, action) {
             const { id, name, amount, epf } = action.payload;
-            const existingEarning = state.find(earning => earning.id === id);
-            if (existingEarning) {
-                existingEarning.name = name;
-                existingEarning.amount = amount;
-                existingEarning.epf = epf;
+            const deductionEarning = state.find(deduction => deduction.id === id);
+            if (deductionEarning) {
+                deductionEarning.name = name;
+                deductionEarning.amount = amount;
+                deductionEarning.epf = epf;
             }
         },
         prepare(id,name,amount, epf){
@@ -66,6 +60,6 @@ const earningSlice = createSlice({
     }
 })
 
-export const selectAllEarnings = (state)=> state.earnings;
-export const {earningAdded, earningRemoved, earningUpdated,resetEarnings} =earningSlice.actions;
-export default earningSlice.reducer;
+export const selectAllDeductions = (state)=> state.deductions;
+export const {deductionAdded, deductionRemoved, deductionUpdated,resetDeductions} =deductionsSlice.actions;
+export default deductionsSlice.reducer;

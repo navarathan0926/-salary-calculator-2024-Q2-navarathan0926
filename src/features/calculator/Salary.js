@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import  {increment, decrement, reset, incrementByAmount, setBasic} from'./salarySlice';
+import  {reset, incrementByAmount, setBasic} from'./salarySlice';
 
 const Salary = () => {
-    const salary = useSelector((state) => state.salary.setBasic);
-    const dispatch = useDispatch();
+    // const salary = useSelector((state) => state.salary.setBasic);
+    // const dispatch = useDispatch();
 
-    const [incrementAmount, setIncrementAmount] = useState(0);
+    // const [incrementAmount, setIncrementAmount] = useState(0);
 
-    const addValue = Number(incrementAmount) || 0;
+    // const addValue = Number(incrementAmount) || 0;
 
-    const resetAll = () =>{
-        setIncrementAmount(0);
-        dispatch(reset());
-    }
+    // const resetAll = () =>{
+    //     setIncrementAmount(0);
+    //     dispatch(reset());
+    // }
 
   return (
     <section>
-        <p>{salary}</p>
+        {/* <p>{salary}</p>
         <p>Basic salary {incrementAmount}</p>
         <div>
             <button onClick={()=>dispatch(increment())}>+</button>
@@ -34,7 +34,7 @@ const Salary = () => {
                 Add amount
             </button>
             <button onClick={resetAll}>Reset Salary</button>
-        </div>
+        </div> */}
     </section>
   )
 }

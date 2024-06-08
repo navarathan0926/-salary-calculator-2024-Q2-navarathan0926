@@ -1,9 +1,102 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import  { reset, incrementByAmount, setBasic} from './../features/calculator/salarySlice'
+import { selectAllEarnings } from '../features/earnings/earningsSlice';
+import { selectAllDeductions } from '../features/deductions/deductionsSlice';
+import  { setTotalEarning, selectAllSalaries, 
+  setGrossDeduction, setTotalEarningsForEPF, setGrossEarning, setGrossSalaryForEPF,
+  setEmployeeEPF,setEmployerEPF,setEmployerETF , setTax, setAPIT,
+  setNetSalary,setCTC} from './../features/calculator/salarySlice';
+
 
 const SalaryComponent = () => {
+  const dispatch = useDispatch();
   const basic = useSelector((state) => state.salary.basic);
+  const earnings = useSelector(selectAllEarnings);
+  const deductions = useSelector(selectAllDeductions);
+  const salaries = useSelector(selectAllSalaries);
+  const red=25000;
+
+  const calTotalEarnings = ()=>{
+    const totalEarningsAmount = earnings.reduce((total,earning)=>total +parseFloat(earning.amount),0 )
+    const totalEarning = totalEarningsAmount+basic;
+    dispatch(setTotalEarning(totalEarning));
+  }
+
+  const calTotalDeduction = ()=>{
+    const totalDeductionsAmount = deductions.reduce((total,deduction)=>total +parseFloat(deduction.amount),0 )
+    dispatch(setGrossDeduction(totalDeductionsAmount));
+  }
+
+  const calTotalEarningsForEPF =() =>{
+    const totalEarningsEPF = earnings
+                                    .filter((earning) => earning.epf)
+                                    .reduce((total,earning)=>total +parseFloat(earning.amount),0 );
+    const totalEarningsForEPF=basic+totalEarningsEPF;
+    dispatch(setTotalEarningsForEPF(totalEarningsForEPF));
+    dispatch(setGrossEarning(salaries));
+    dispatch(setGrossSalaryForEPF(salaries));
+    dispatch(setEmployeeEPF(salaries));
+    dispatch(setEmployerEPF(salaries));
+    dispatch(setEmployerETF(salaries));
+    dispatch(setTax(salaries));
+    dispatch(setAPIT(salaries));
+    dispatch(setNetSalary(salaries));
+    dispatch(setCTC(salaries));
+  }
+
+  // const calGrossEarning =() =>{
+  //   const grossEarning = salaries.totalEarning - salaries.grossDeduction;
+  //   dispatch(setGrossEarning(grossEarning));
+  // }
+
+  // const calGrossSalaryForEPF= ()=>{
+  //   const grossSalaryForEPF = salaries.totalEarningsForEPF - salaries.grossDeduction;
+  //   dispatch(setGrossSalaryForEPF(grossSalaryForEPF));
+  // }
+
+  // const calEmployeeEPF= ()=>{
+  //   const employeeEPF = salaries.grossSalaryForEPF * 0.08;
+  //   dispatch(setEmployeeEPF(employeeEPF));
+  // }
+
+  // const calEmployerEPF= ()=>{
+  //   const employerEPF = salaries.grossSalaryForEPF * 0.12;
+  //   dispatch(setEmployerEPF(employerEPF));
+  // }
+
+  // const calEmployerETF= ()=>{
+  //   const employerETF = salaries.grossSalaryForEPF * 0.03;
+  //   dispatch(setEmployerETF(employerETF));
+  // }
+
+  // const calAPIT= ()=>{
+  //   const APIT = (salaries.grossEarning * 0.18) -red;
+  //   dispatch(setAPIT(APIT));
+  // }
+
+  // const calNetSalary= ()=>{
+  //   const netSalary = salaries.grossEarning - salaries.employeeEPF- salaries.APIT;
+  //   dispatch(setNetSalary(netSalary));
+  // }
+
+  // const calCTC = ()=>{
+  //   const CTC = salaries.grossEarning + salaries.employerEPF + salaries.employerETF;
+  //   dispatch(setNetSalary(CTC));
+  // }
+
+  useEffect(() =>{
+    calTotalEarnings();
+    calTotalDeduction();
+    calTotalEarningsForEPF();
+    
+
+  },[earnings, deductions, basic]);
+
+  const formatCurrency = (value) => {
+    return value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  };
+
+  // const totalEarning = useSelector((state) => state.salary.totalEarning);
 
   return (
     <div className="col-lg-4 col-md-12">
@@ -22,11 +115,11 @@ const SalaryComponent = () => {
                     </div>
                     <div className="col-6 text-end">
                       <p className="text-secondary small">Amount</p>
-                      <p className="small">{basic}</p>
-                      <p className="small">100,000.00</p>
-                      <p className="small">0.00</p>
-                      <p className="small">-8,000.00</p>
-                      <p className="small">0.00</p>
+                      <p className="small">{formatCurrency(basic)}</p>
+                      <p className="small">{formatCurrency(salaries.grossEarning)}</p>
+                      <p className="small">{salaries.grossDeduction > 0 ? `-${formatCurrency(salaries.grossDeduction)}` : formatCurrency(salaries.grossDeduction)}</p>
+                      <p className="small">{salaries.employeeEPF > 0 ? `-${formatCurrency(salaries.employeeEPF)}` : formatCurrency(salaries.employeeEPF)}</p>
+                      <p className="small">{salaries.APIT > 0 ? `-${formatCurrency(salaries.APIT)}` : formatCurrency(salaries.APIT)}</p>
                     </div>
                   </div>
                   <div className="card card-outline card-warning">
@@ -35,7 +128,7 @@ const SalaryComponent = () => {
                         <p className="small">Net Salary (Take Home)</p>
                       </div>
                       <div className="col-6 text-end">
-                        <p className="small">92,000.00</p>
+                        <p className="small">{formatCurrency(salaries.netSalary)}</p>
                       </div>
                     </div>
                   </div>
@@ -47,9 +140,9 @@ const SalaryComponent = () => {
                       <p className="small">CTC (Cost to Company)</p>
                     </div>
                     <div className="col-6 text-end">
-                      <p className="small">12,000.00</p>
-                      <p className="small">3,000.00</p>
-                      <p className="small">107,000.00</p>
+                      <p className="small">{formatCurrency(salaries.employerEPF)}</p>
+                      <p className="small">{formatCurrency(salaries.employerETF)}</p>
+                      <p className="small">{formatCurrency(salaries.CTC)}</p>
                     </div>
                   </div>
                 </div>
