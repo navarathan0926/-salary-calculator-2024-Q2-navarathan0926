@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import  {increment, decrement, reset, incrementByAmount, setBasicSalary} from'./salarySlice';
+import  {increment, decrement, reset, incrementByAmount, setBasic} from'./salarySlice';
 
 const Salary = () => {
-    const salary = useSelector((state) => state.salary.salary);
+    const salary = useSelector((state) => state.salary.setBasic);
     const dispatch = useDispatch();
 
     const [incrementAmount, setIncrementAmount] = useState(0);

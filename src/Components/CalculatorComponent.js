@@ -1,17 +1,24 @@
 import React, { useState} from 'react';
-import EarningForm from './EarningForm';
+// import EarningForm from './EarningForm';
 import Reset_icon from './../assets/images/_Link.png'
 import { useSelector, useDispatch } from 'react-redux';
-import  {increment, decrement, reset, incrementByAmount, setSalary} from './../features/calculator/salarySlice'
+import  { reset, incrementByAmount, setBasic} from './../features/calculator/salarySlice'
+import AddEarningForm from '../features/earnings/AddEarningForm';
+import EarningsList from '../features/earnings/EarningsList';
+import EditEarningForm from '../features/earnings/EditEarningForm';
+
+
+
 
 
 
 const CalculatorComponent = () => {
     const [earningSection,setEarningSection] = useState(false);
-    const salary = useSelector((state) => state.salary.salary) || '';
+
+    const basic = useSelector((state) => state.salary.basic) || '';
     const dispatch = useDispatch();
 
-    const [basicSalary, setBasicSalary] = useState(salary);
+    const [basicSalary, setBasicSalary] = useState(basic);
 
     // const addValue = Number(basicSalary) || 0;
 
@@ -25,7 +32,7 @@ const CalculatorComponent = () => {
     const handleOnChange = (e) => {
         const value = Number(e.target.value) || 0;
         setBasicSalary(value);
-        dispatch(setSalary(value));
+        dispatch(setBasic(value));
       };
     
     const handleSubmit = async(e) =>{
@@ -56,7 +63,7 @@ const CalculatorComponent = () => {
                     <label htmlFor="inputBasicSalary">Basic Salary</label>
                     <br />
                     <input type="number" className="rounded-1" name="inputBasicSalary" id="inputBasicSalary"  
-                        value={salary} 
+                        value={basic} 
                         onChange={handleOnChange}
                         
                         // onChange={(e) => setBasicSalary(e.target.value)}
@@ -65,13 +72,16 @@ const CalculatorComponent = () => {
                     </form>
                     <h5>Earnings</h5>
                     <p className="text-secondary">
-                    <small>Allowance, Fixed Allowance, Bonus, and etc.</small>
+                        <small>Allowance, Fixed Allowance, Bonus, and etc.</small>
                     </p>
+                    
+                    <EarningsList />
+
                     <button className="btn text-primary pb-3" onClick={()=>setEarningSection(true)}>+ Add New Allowance</button>
                        
                     <hr />
                     <h5>Deductions</h5>
-                    <p>Salary Advances, Loan Deductions, and Allowance</p>
+                    <p className="text-secondary small">Salary Advances, Loan Deductions, and Allowance</p>
                     <button className="btn text-primary pb-3">+ Add New Deduction</button>
                 </div>
                 </div>
@@ -80,14 +90,29 @@ const CalculatorComponent = () => {
         {/* Earnings form */}
         {
         earningSection && (
-            <EarningForm 
-            handleSubmit={handleSubmit}
-            handleOnChange={handleOnChange}
-            handleClose = {()=>setEarningSection(false)}
-            // rest = {locationFormData}
+            // <AddEarningForm 
+            //     handleClose = {()=>setEarningSection(false)}
+            // />
+            // <EarningForm
+            // handleSubmit={handleSubmit}
+            // handleOnChange={handleOnChange}
+            // handleClose = {()=>setEarningSection(false)}
+            // // rest = {locationFormData}
+            // />
+            <EditEarningForm 
+                handleClose = {()=>setEarningSection(false)}
+                operation='Add'
+                key={''}
+                earning={null}
+                heading="Add New Earnings"
             />
+
         )
+        
+
         }
+
+        
     </>
     
     

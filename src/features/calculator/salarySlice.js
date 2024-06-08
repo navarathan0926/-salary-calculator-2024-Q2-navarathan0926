@@ -1,32 +1,39 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const initialState={
-    salary: 0,
+    basic: 0.00,
+    sumEarningEPF:0.00,
+    totalEarning:0.00,
+    grossEarning: 0.00,
+    grossDeduction: 0.00,
+    grossSalaryForEPF:0.00,
+    employeeEPF:8,
+    employerEPF:12,
+    employerETF:3,
+    APIT:0.00,
+    netSalary:0.00,
+    CTC:0.00,
 }
 
 export const salarySlice =createSlice({
     name:'salary',
     initialState,
     reducers:{
-        increment: (state)=>{
-            state.salary +=1;
-        },
-        decrement: (state)=>{
-            state.salary -=1;
-        },
+        
         reset: (state)=>{
-            state.salary =0;
+            state.basic =0;
         },
         incrementByAmount: (state, action)=>{
-            state.salary += action.payload;
+            state.basic += action.payload;
         },
-        setSalary(state, action) {
-            state.salary = action.payload;
+        setBasic(state, action) {
+            state.basic = action.payload;
         },
         
     }
 });
 
-export const { increment, decrement, reset, incrementByAmount,setSalary} = salarySlice.actions;
+export const { increment, decrement, reset, incrementByAmount,setBasic} = salarySlice.actions;
 
 export default salarySlice.reducer;

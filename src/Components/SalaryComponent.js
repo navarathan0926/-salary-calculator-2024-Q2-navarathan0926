@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import  {increment, decrement, reset, incrementByAmount, setSalary} from './../features/calculator/salarySlice'
+import  { reset, incrementByAmount, setBasic} from './../features/calculator/salarySlice'
 
 const SalaryComponent = () => {
-  const salary = useSelector((state) => state.salary.salary);
+  const basic = useSelector((state) => state.salary.basic);
 
   return (
     <div className="col-lg-4 col-md-12">
@@ -22,7 +22,7 @@ const SalaryComponent = () => {
                     </div>
                     <div className="col-6 text-end">
                       <p className="text-secondary small">Amount</p>
-                      <p className="small">{salary}</p>
+                      <p className="small">{basic}</p>
                       <p className="small">100,000.00</p>
                       <p className="small">0.00</p>
                       <p className="small">-8,000.00</p>
